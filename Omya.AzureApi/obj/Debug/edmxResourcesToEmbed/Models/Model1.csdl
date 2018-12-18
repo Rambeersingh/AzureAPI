@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="OmyaApps" EntityType="Model1.OmyaApps" />
+    <EntitySet Name="OmyaAppLanguages" EntityType="Model1.OmyaAppLanguage" />
+    <EntitySet Name="OmyaAppInfos" EntityType="Model1.OmyaAppInfos" />
+    <EntitySet Name="OmyaAppInfosAttachments" EntityType="Model1.OmyaAppInfosAttachment" />
+    <AssociationSet Name="OmyaAppInfosOmyaAppInfosAttachment" Association="Model1.OmyaAppInfosOmyaAppInfosAttachment">
+      <End Role="OmyaAppInfos" EntitySet="OmyaAppInfos" />
+      <End Role="OmyaAppInfosAttachment" EntitySet="OmyaAppInfosAttachments" />
+    </AssociationSet>
+    <EntitySet Name="Plants" EntityType="Model1.Plant" />
+    <EntitySet Name="OmyaPlantAttachments" EntityType="Model1.OmyaPlantAttachment" />
+    <AssociationSet Name="PlantAttachments" Association="Model1.PlantAttachments">
+      <End Role="Plant" EntitySet="Plants" />
+      <End Role="OmyaPlantAttachment" EntitySet="OmyaPlantAttachments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="OmyaApps">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="Key" Type="String" Nullable="false" />
+    <Property Name="AppType" Type="String" Nullable="false" />
+    <Property Name="AppGUID" Type="String" Nullable="false" />
+    <Property Name="iTunesStoreUrl" Type="String" Nullable="false" />
+    <Property Name="GooglePlayStoreUrl" Type="String" Nullable="false" />
+    <Property Name="PushNotifications" Type="String" Nullable="false" />
+    <Property Name="Modified" Type="String" Nullable="false" />
+    <Property Name="Created" Type="String" Nullable="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OmyaAppLanguage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="Modified" Type="String" Nullable="false" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" />
+    <Property Name="Created" Type="String" Nullable="false" />
+    <Property Name="OmyaAppID" Type="String" Nullable="false" />
+    <Property Name="DefaultLanguage" Type="String" Nullable="false" />
+    <Property Name="Language" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OmyaAppInfos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="OmyaAppID" Type="String" Nullable="false" />
+    <Property Name="SegmentID" Type="String" Nullable="false" />
+    <Property Name="Key" Type="String" Nullable="false" />
+    <Property Name="SegmentOrder" Type="String" Nullable="false" />
+    <Property Name="ItemType" Type="String" Nullable="false" />
+    <Property Name="Tags" Type="String" Nullable="false" />
+    <Property Name="Platform" Type="String" Nullable="false" />
+    <Property Name="SegmentLink" Type="String" Nullable="false" />
+    <Property Name="Language" Type="String" Nullable="false" />
+    <Property Name="Modified" Type="String" Nullable="false" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" />
+    <Property Name="Created" Type="String" Nullable="false" />
+    <NavigationProperty Name="OmyaAppInfosAttachments" Relationship="Model1.OmyaAppInfosOmyaAppInfosAttachment" FromRole="OmyaAppInfos" ToRole="OmyaAppInfosAttachment" />
+  </EntityType>
+  <EntityType Name="OmyaAppInfosAttachment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="OmyaAppInfo" Relationship="Model1.OmyaAppInfosOmyaAppInfosAttachment" FromRole="OmyaAppInfosAttachment" ToRole="OmyaAppInfos" />
+    <Property Name="OmyaAppInfosId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="OmyaAppInfosOmyaAppInfosAttachment">
+    <End Type="Model1.OmyaAppInfos" Role="OmyaAppInfos" Multiplicity="1" />
+    <End Type="Model1.OmyaAppInfosAttachment" Role="OmyaAppInfosAttachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OmyaAppInfos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OmyaAppInfosAttachment">
+        <PropertyRef Name="OmyaAppInfosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Plant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SiteCode" Type="String" Nullable="false" />
+    <Property Name="Region" Type="String" Nullable="false" />
+    <Property Name="Country" Type="String" Nullable="false" />
+    <Property Name="PlantName" Type="String" Nullable="false" />
+    <Property Name="Mineral" Type="String" Nullable="false" />
+    <Property Name="Latitude" Type="String" Nullable="false" />
+    <Property Name="Longitude" Type="String" Nullable="false" />
+    <Property Name="Certifications" Type="String" Nullable="false" />
+    <Property Name="OmyaAppID" Type="String" Nullable="false" />
+    <Property Name="Langugage" Type="String" Nullable="false" />
+    <Property Name="Modified" Type="String" Nullable="false" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" />
+    <Property Name="Created" Type="String" Nullable="false" />
+    <NavigationProperty Name="OmyaPlantAttachments" Relationship="Model1.PlantAttachments" FromRole="Plant" ToRole="OmyaPlantAttachment" />
+  </EntityType>
+  <EntityType Name="OmyaPlantAttachment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Plant" Relationship="Model1.PlantAttachments" FromRole="OmyaPlantAttachment" ToRole="Plant" />
+    <Property Name="PlantId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="PlantAttachments">
+    <End Type="Model1.Plant" Role="Plant" Multiplicity="1" />
+    <End Type="Model1.OmyaPlantAttachment" Role="OmyaPlantAttachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OmyaPlantAttachment">
+        <PropertyRef Name="PlantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
